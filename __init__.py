@@ -37,8 +37,7 @@ class Dialog(QDialog):
         self.layout2 = QHBoxLayout()
 
         QBtn = (
-            QDialogButtonBox.StandardButton.Ok
-            | QDialogButtonBox.StandardButton.Cancel
+            QDialogButtonBox.StandardButton.Ok | QDialogButtonBox.StandardButton.Cancel
         )
 
         self.buttonBox = QDialogButtonBox(QBtn)
@@ -92,15 +91,14 @@ class ModifiedMpvManager(MpvManager):
             "loadfile",
             path,
             "replace",
+            0,
             f"volume={config['volume']}," + "pause=no,",
         )
         gui_hooks.av_player_did_begin_playing(self, tag)
 
 
 def add_player(_):
-    av_player.players.append(
-        ModifiedMpvManager(mw.pm.base, mw.col.media.dir())
-    )
+    av_player.players.append(ModifiedMpvManager(mw.pm.base, mw.col.media.dir()))
 
 
 AnkiQt.setup_sound = wrap(AnkiQt.setup_sound, add_player, "after")
